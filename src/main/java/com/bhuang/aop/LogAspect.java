@@ -28,7 +28,7 @@ public class LogAspect {
      *            param-pattern:参数模式（必须）比如：() 匹配一个不接受任何参数的方法, (*) 匹配接受任意数量参数的方法, (String,*) 匹配一个接受两个参数的方法
      *            throws-pattern:异常模式（非必须）比如：throws Exception 抛出异常）
      */
-    @Pointcut("execution(* com.bhuang.aop.*.*(..))")
+    @Pointcut("execution(* com.bhuang.aop.TargetObject.*(..))")
     public void point() {
     }
 
@@ -64,7 +64,7 @@ public class LogAspect {
     /**
      * 异常通知 在方法抛出异常后执行
      */
-    @AfterThrowing
+    @AfterThrowing(value = "point()")
     public void afterThrow() {
         System.out.println("afterThrow");
     }
@@ -79,10 +79,19 @@ public class LogAspect {
 
     /**
      * 环绕通知 控制方法的执行
+     * 通知的第一个参数必须是ProceedingJoinPoint类型
+     * 调用ProceedingJoinPoint的proceed()方法会导致后台的连接点方法执行（调用被通知的方法）
+     * 注意：如果没有调用proceed()方法，那么通知实际上会阻塞对被通知方法的调用
      */
     @Around("point()")
-    public Object around(ProceedingJoinPoint point) throws Exception {
-        System.out.println("around");
+    public Object around(ProceedingJoinPoint point) throws Throwable {
+        try {
+            System.out.println("proceed before");
+            Object object = point.proceed();
+            System.out.println("proceed after:"+object.toString());
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         return null;
     }
 

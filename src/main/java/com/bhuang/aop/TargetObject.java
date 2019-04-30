@@ -11,11 +11,21 @@ import org.springframework.stereotype.Service;
  */
 @Service("targetObject")
 public class TargetObject {
-    public void log() {
-        System.out.println("log");
+    public void method1() {
+        System.out.println("method1");
     }
 
-    public void log2(String val1, String val2) {
-        System.out.println("log2");
+    public void method2(String val1, String val2) {
+        System.out.println("method2");
+    }
+
+    public void method3() throws Exception {
+        System.out.println("method3");
+        throw new Exception("异常");
+    }
+
+    public String method4(String val4) {
+        System.out.println("method4");
+        return val4;
     }
 }

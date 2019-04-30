@@ -1,7 +1,6 @@
 package com.bhuang.aop;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author: huangbin
- * @description:
+ * @description: AOP测试类
  * @date: Created in 2019/4/30
  * @modified By:
  */
@@ -22,12 +21,22 @@ public class TargetObjectTest {
     TargetObject targetObject;
 
     @Test
-    public void log() {
-        targetObject.log();
+    public void method1() {
+        targetObject.method1();
     }
 
     @Test
-    public void log2() {
-        targetObject.log2("参数1", "参数2");
+    public void method2() {
+        targetObject.method2(null, "参数2");
+    }
+
+    @Test
+    public void method3() throws Exception {
+        targetObject.method3();
+    }
+
+    @Test
+    public void method4() {
+        targetObject.method4("log4参数");
     }
 }
