@@ -12,8 +12,20 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-
+    <!--注解方式-->
     <context:component-scan base-package="com.bhuang.aop"/>
-    <aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy/>
+
+    <!--配置方式-->
+    <bean id="configureAspect" class="com.bhuang.aop.ConfigureAspect"/>
+    <bean id="targetObjectByConfigure" class="com.bhuang.aop.TargetObjectByConfigure"/>
+    <aop:config>
+        <aop:pointcut id="pointId" expression="execution(* com.bhuang.aop.TargetObjectByConfigure.*(..))"/>
+        <aop:aspect id="configureAspectId" ref="configureAspect">
+            <aop:before method="before" pointcut-ref="pointId"/>
+            <!--<aop:before method="before2" arg-names="var1,var2" pointcut-ref="pointId"/>-->
+            <aop:after method="after" pointcut-ref="pointId"/>
+        </aop:aspect>
+    </aop:config>
 
 </beans>

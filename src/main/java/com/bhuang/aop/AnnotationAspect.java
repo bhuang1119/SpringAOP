@@ -14,7 +14,7 @@ import org.springframework.util.ObjectUtils;
  */
 @Component
 @Aspect
-public class LogAspect {
+public class AnnotationAspect {
     /**
      * @Pointcut 声明切入点
      * 注意：1.作为切入点的方法必须返回void类型
@@ -30,7 +30,7 @@ public class LogAspect {
      *            param-pattern:参数模式（必须）比如：() 匹配一个不接受任何参数的方法, (*) 匹配接受任意数量参数的方法, (String,*) 匹配一个接受两个参数的方法
      *            throws-pattern:异常模式（非必须）比如：throws Exception 抛出异常）
      */
-    @Pointcut("execution(* com.bhuang.aop.TargetObject.*(..))")
+    @Pointcut("execution(* com.bhuang.aop.TargetObjectByAnnotation.*(..))")
     public void point() {
     }
 
@@ -40,7 +40,7 @@ public class LogAspect {
      */
     @Before("point()")
     public void beforeAdvice() {
-        System.out.println("beforeAdvice");
+        System.out.println("注解方式-beforeAdvice");
     }
 
     /**
@@ -52,7 +52,7 @@ public class LogAspect {
      */
     @Before("point() && args(var1,var2)")
     public void beforeAdvice2(String var1, String var2) {
-        System.out.println("beforeAdvice2  var1：" + var1 + "   var2：" + var2);
+        System.out.println("注解方式-beforeAdvice2  var1：" + var1 + "   var2：" + var2);
     }
 
     /**
@@ -60,7 +60,7 @@ public class LogAspect {
      */
     @AfterReturning(value = "point()")
     public void afterReturn() {
-        System.out.println("afterReturn");
+        System.out.println("注解方式-afterReturn");
     }
 
     /**
@@ -68,7 +68,7 @@ public class LogAspect {
      */
     @AfterThrowing(value = "point()")
     public void afterThrow() {
-        System.out.println("afterThrow");
+        System.out.println("注解方式-afterThrow");
     }
 
     /**
@@ -76,7 +76,7 @@ public class LogAspect {
      */
     @After(value = "point()")
     public void after() {
-        System.out.println("after");
+        System.out.println("注解方式-after");
     }
 
     /**
@@ -88,9 +88,9 @@ public class LogAspect {
     @Around("point()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         try {
-            System.out.println("proceed before");
+            System.out.println("注解方式-proceed before");
             Object object = point.proceed();
-            System.out.println("proceed after:" + (ObjectUtils.isEmpty(object) ? "空返回值" : object.toString()) + "  args:"
+            System.out.println("注解方式-proceed after:" + (ObjectUtils.isEmpty(object) ? "空返回值" : object.toString()) + "  args:"
                     + CollectionUtils.arrayToList(point.getArgs()).toString());
         } catch (Throwable throwable) {
             throwable.printStackTrace();
