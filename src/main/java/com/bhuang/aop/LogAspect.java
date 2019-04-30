@@ -3,6 +3,8 @@ package com.bhuang.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @author: huangbin
@@ -88,7 +90,8 @@ public class LogAspect {
         try {
             System.out.println("proceed before");
             Object object = point.proceed();
-            System.out.println("proceed after:"+object.toString());
+            System.out.println("proceed after:" + (ObjectUtils.isEmpty(object) ? "空返回值" : object.toString()) + "  args:"
+                    + CollectionUtils.arrayToList(point.getArgs()).toString());
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

@@ -27,7 +27,7 @@ public class TargetObjectTest {
 
     @Test
     public void method2() {
-        targetObject.method2(null, "参数2");
+        targetObject.method2("method2参数1", "method2参数2");
     }
 
     @Test
@@ -37,6 +37,6 @@ public class TargetObjectTest {
 
     @Test
     public void method4() {
-        targetObject.method4("log4参数");
+        targetObject.method4("method4参数");
     }
 }

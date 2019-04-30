@@ -26,6 +26,6 @@ public class TargetObject {
 
     public String method4(String val4) {
         System.out.println("method4");
-        return val4;
+        return "method4的返回";
     }
 }
