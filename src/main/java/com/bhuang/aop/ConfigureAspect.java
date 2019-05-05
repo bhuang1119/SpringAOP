@@ -1,6 +1,10 @@
 package com.bhuang.aop;
 
 
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
+
 /**
  * @author: huangbin
  * @description:
@@ -28,7 +32,15 @@ public class ConfigureAspect {
         System.out.println("配置方式-afterThrow");
     }
 
-    public void around(){
-        System.out.println("配置方式-around");
+    public Object around(ProceedingJoinPoint point){
+        try {
+            System.out.println("配置方式-proceed before");
+            Object object = point.proceed();
+            System.out.println("配置方式-proceed after:" + (ObjectUtils.isEmpty(object) ? "空返回值" : object.toString()) + "  args:"
+                    + CollectionUtils.arrayToList(point.getArgs()).toString());
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return null;
     }
 }

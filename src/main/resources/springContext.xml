@@ -25,6 +25,9 @@
             <aop:before method="before" pointcut-ref="pointId"/>
             <!--<aop:before method="before2" arg-names="var1,var2" pointcut-ref="pointId"/>-->
             <aop:after method="after" pointcut-ref="pointId"/>
+            <aop:around method="around" pointcut-ref="pointId"/>
+            <aop:after-returning method="afterReturn" pointcut-ref="pointId"/>
+            <aop:after-throwing method="afterThrow" pointcut-ref="pointId"/>
         </aop:aspect>
     </aop:config>
 
